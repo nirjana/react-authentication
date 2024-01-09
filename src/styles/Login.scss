@@ -1,0 +1,45 @@
+.login-section {
+  align-items: center;
+  background-color: rgb(240, 242, 245);
+  display: flex;
+  height: 100vh;
+}
+
+.login-container {
+  margin: 0 auto;
+  padding: 20px;
+  width: 380px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.login-header {
+  margin-bottom: 20px;
+}
+
+.login-title {
+  font-size: 25px;
+  color: rgb(9 102 177);
+}
+
+.login-text {
+  color: blue;
+}
+
+.social-login {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  color: rgb(241, 15, 15);
+  font-size: 24px;
+}
+.social-icon {
+  cursor: pointer;
+}
+
+.login-btn {
+  margin-bottom: "0px";
+}
+.login-header-logo {
+  justify-content: center;
+  padding: 8px;
+}
