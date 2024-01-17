@@ -17,7 +17,7 @@ import { Book } from 'src/books/entities/book.entity';
       password: 'admin123',
       username: 'postgres',
       entities: [User, Book],
-      database: 'authentication',
+      database: 'imNew',
       synchronize: true,
       logging: true,
     }),

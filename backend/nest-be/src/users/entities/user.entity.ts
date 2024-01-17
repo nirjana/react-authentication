@@ -1,5 +1,12 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Expose } from 'class-transformer';
+import { Book } from 'src/books/entities/book.entity';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -33,4 +40,8 @@ export class User {
    * u - unspecified
    */
   gender: string;
+
+  @JoinTable()
+  @ManyToMany(() => Book, (book) => book.users, { cascade: true })
+  books: Book[];
 }

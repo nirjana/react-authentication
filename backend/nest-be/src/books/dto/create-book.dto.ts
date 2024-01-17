@@ -15,7 +15,10 @@ export class CreateBookDto {
   @IsNotEmpty({ message: 'Please provide a departent' })
   department: string;
 
-  @IsOptional()
-  @IsInt({ message: 'Please provide a number' })
-  price: number;
+  // @IsOptional()
+  // @IsInt({ message: 'Please provide a number' })
+  // price: number;
+
+  // @IsString({ each: true })
+  // readonly users: string[];
 }

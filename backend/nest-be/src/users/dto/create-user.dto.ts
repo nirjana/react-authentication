@@ -47,4 +47,7 @@ export class CreateUserDto {
   })
   // @Matches(passwordRegEx)
   password: string;
+
+  @IsString({ each: true })
+  readonly books: string[];
 }
