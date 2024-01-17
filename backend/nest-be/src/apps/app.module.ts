@@ -5,9 +5,10 @@ import { UsersController } from 'src/users/users.controller';
 import { UsersModule } from 'src/users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/users/entities/user.entity';
+import { BooksModule } from 'src/books/books.module';
+import { Book } from 'src/books/entities/book.entity';
 
 @Module({
-  // imports: [UsersModule],
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -15,12 +16,13 @@ import { User } from 'src/users/entities/user.entity';
       port: 5432,
       password: 'admin123',
       username: 'postgres',
-      entities: [User],
+      entities: [User, Book],
       database: 'authentication',
       synchronize: true,
       logging: true,
     }),
     UsersModule,
+    BooksModule,
   ],
   controllers: [AppController],
   providers: [AppService],
