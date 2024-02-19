@@ -1,19 +1,19 @@
+import { Department } from 'src/department/entities/department.entity';
+import { User } from 'src/users/entities/user.entity';
 import {
   Column,
   Entity,
-  JoinTable,
   ManyToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Expose } from 'class-transformer';
-import { User } from 'src/users/entities/user.entity';
 @Entity()
 export class Book {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: true, type: 'varchar', length: 30 })
-  department: string;
+  @ManyToOne(() => Department, (department) => department.books)
+  department: Department;
 
   // @Column({ type: 'int' })
   // price: number;

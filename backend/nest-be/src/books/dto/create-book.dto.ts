@@ -1,10 +1,5 @@
-import {
-  IsInt,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  MinLength,
-} from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString, MinLength } from 'class-validator';
+import { Department } from 'src/department/entities/department.entity';
 
 export class CreateBookDto {
   @IsString()
@@ -13,7 +8,8 @@ export class CreateBookDto {
   readonly name: string;
 
   @IsNotEmpty({ message: 'Please provide a departent' })
-  department: string;
+  @IsNumber()
+  department: Department;
 
   // @IsOptional()
   // @IsInt({ message: 'Please provide a number' })

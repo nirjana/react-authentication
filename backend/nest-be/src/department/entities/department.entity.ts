@@ -1,11 +1,7 @@
 import { Book } from 'src/books/entities/book.entity';
-import {
-  Column,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+
+@Entity()
 export class Department {
   @PrimaryGeneratedColumn()
   id: number;
@@ -22,9 +18,6 @@ export class Department {
   @Column({ default: 0 })
   recommendations: number;
 
-  // @JoinTable()
-  // @ManyToMany(type => Book,
-  //     book => book.coffees,
-  //   {cascade: true})
-  // flavors: Flavor[];
+  @OneToMany(() => Book, (book) => book.department)
+  books: Book[];
 }

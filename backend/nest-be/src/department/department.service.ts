@@ -1,10 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Book } from 'src/books/entities/book.entity';
+import { DataSource, Repository } from 'typeorm';
 import { CreateDepartmentDto } from './dto/create-department.dto';
 import { UpdateDepartmentDto } from './dto/update-department.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Connection, Repository } from 'typeorm';
 import { Department } from './entities/department.entity';
-import { Book } from 'src/books/entities/book.entity';
 
 @Injectable()
 export class DepartmentService {
@@ -13,7 +13,7 @@ export class DepartmentService {
     private readonly departmentRepository: Repository<Department>,
     @InjectRepository(Book)
     private readonly BookRepository: Repository<Book>,
-    private readonly connection: Connection,
+    private dataSource: DataSource,
   ) {}
 
   create(createDepartmentDto: CreateDepartmentDto) {

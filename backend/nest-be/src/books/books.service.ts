@@ -3,12 +3,12 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/users/entities/user.entity';
+import { Repository } from 'typeorm';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from './entities/book.entity';
-import { Connection, Repository } from 'typeorm';
-import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class BooksService {
@@ -17,7 +17,7 @@ export class BooksService {
     private booksRepository: Repository<Book>,
     @InjectRepository(User)
     private readonly UserRepository: Repository<User>,
-    private readonly connection: Connection,
+    // private dataSource: DataSource,
   ) {}
 
   async create(body: CreateBookDto) {
@@ -51,10 +51,11 @@ export class BooksService {
     try {
       const book = await this.booksRepository.findOne({
         where: { id: +id },
+        // relations: { department: true },
         select: {
           id: true,
           name: true,
-          department: true,
+          // department: { id: true, name: true },
         },
       });
 
