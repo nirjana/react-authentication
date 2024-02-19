@@ -10,19 +10,24 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ILike, Repository } from 'typeorm';
 import { User } from './entities/user.entity';
+import { Book } from 'src/books/entities/book.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
+    @InjectRepository(Book)
+    private readonly booksRepository: Repository<Book>,
   ) {}
 
   async create(body: CreateUserDto) {
     try {
       const errMessage = [];
       const { email, username } = body;
-
+      const books = await Promise.all(
+        body.books.map((name) => this.preloadBookByName(name)),
+      );
       const existingUser = await this.usersRepository.findOne({
         where: { email: ILike(`${body.email}`) },
       });
@@ -31,7 +36,7 @@ export class UsersService {
         throw new ConflictException('Email already exists');
       }
 
-      const newUser = this.usersRepository.create(body);
+      const newUser = this.usersRepository.create({ ...body, books });
       return await this.usersRepository.save(newUser);
     } catch (error) {
       console.error(error);
@@ -105,5 +110,17 @@ export class UsersService {
 
   remove(id: number) {
     return `This action removes a #${id} user`;
+  }
+
+  private async preloadBookByName(name: string): Promise<Book> {
+    const existingBook = await this.booksRepository.findOne({
+      where: { name: name },
+    });
+
+    if (existingBook) {
+      return existingBook;
+    }
+
+    return await this.booksRepository.create({ name });
   }
 }
