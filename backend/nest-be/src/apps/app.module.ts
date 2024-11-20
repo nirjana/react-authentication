@@ -18,7 +18,7 @@ import { AppService } from './app.service';
       password: 'admin123',
       username: 'postgres',
       entities: [User, Book, Department],
-      database: 'imNew',
+      database: 'my_pgdb1',
       synchronize: true,
       logging: true,
     }),
